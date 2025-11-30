@@ -1,0 +1,27 @@
+{
+  "api/CrouseNugetUtility.DateUtility.html": {
+    "href": "api/CrouseNugetUtility.DateUtility.html",
+    "title": "Class DateUtility | mysite",
+    "summary": "Class DateUtility Namespace CrouseNugetUtility Assembly CrouseNugetUtility.dll public static class DateUtility Inheritance object DateUtility Inherited Members object.Equals(object) object.Equals(object, object) object.GetHashCode() object.GetType() object.MemberwiseClone() object.ReferenceEquals(object, object) object.ToString() Methods CovertIntToFormatedPersian(int) تبدیل تاریخ عددی شمسی به شمسی با جدا کننده public static string CovertIntToFormatedPersian(this int date) Parameters date int Returns string \"1404/01/01\" Examples 14040101.CovertIntToFormatedPersian(); ToGregorianDate(string) تبدیل تاریخ شمسی به میلادی public static DateTime ToGregorianDate(this string persianDate) Parameters persianDate string Returns DateTime DateTime Examples 14040101.Tostring().ToGregorianDate(); ToPersianDate(DateTime) تبدیل تاریخ میلادی به شمسی بدون جدا کننده public static string ToPersianDate(this DateTime gregorianDate) Parameters gregorianDate DateTime Returns string \"14040101\" Examples DateTime.Now.ToPersianDate(); ToPersianDateInt(DateTime) تبدیل تاریخ میلادی به شمسی بدون جدا کننده public static int ToPersianDateInt(this DateTime gregorianDate) Parameters gregorianDate DateTime Returns int 14040101 Examples DateTime.Now.ToPersianDateInt(); ToPersianDateWithSeprator(DateTime) تبدیل تاریخ میلادی به شمسی با جدا کننده public static string ToPersianDateWithSeprator(this DateTime date) Parameters date DateTime Returns string \"1404/01/01\" Examples DateTime.Now.ToPersianDateWithSeprator();"
+  },
+  "api/CrouseNugetUtility.html": {
+    "href": "api/CrouseNugetUtility.html",
+    "title": "Namespace CrouseNugetUtility | mysite",
+    "summary": "Namespace CrouseNugetUtility Classes DateUtility"
+  },
+  "docs/getting-started.html": {
+    "href": "docs/getting-started.html",
+    "title": "Getting Started | mysite",
+    "summary": "Getting Started"
+  },
+  "docs/introduction.html": {
+    "href": "docs/introduction.html",
+    "title": "Introduction | mysite",
+    "summary": "Introduction"
+  },
+  "index.html": {
+    "href": "index.html",
+    "title": "This is the HOMEPAGE. | mysite",
+    "summary": "This is the HOMEPAGE. Refer to Markdown for how to write markdown files. Quick Start Notes: Add images to the images folder if the file is referencing an image."
+  }
+}
