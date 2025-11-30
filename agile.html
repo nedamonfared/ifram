@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>گزارش جامع Agile - دموی کامل</title>
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --secondary: #10b981;
+            --accent: #f59e0b;
+            --bg-dark: #0f172a;
+            --bg-light: #1e293b;
+            --text-light: #f1f5f9;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-light) 100%);
+            color: var(--text-light);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            width: 100%;
+        }
+
+        .slide-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .slide {
+            display: none;
+            width: 100%;
+            max-width: 1200px;
+            background: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideIn 0.5s ease-out;
+            overflow-y: auto;
+            max-height: 80vh;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            border-bottom: 3px solid var(--primary);
+            padding-bottom: 0.5rem;
+        }
+
+        h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin: 2rem 0 1rem;
+        }
+
+        h4 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin: 1.5rem 0 1rem;
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.2) 0%, rgba(16, 185, 129, 0.2) 100%);
+            border-right: 4px solid var(--primary);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: rgba(37, 99, 235, 0.1);
+            border: 2px solid var(--primary);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--secondary);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: var(--text-muted);
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .card {
+            background: rgba(16, 185, 129, 0.1);
+            border: 2px solid var(--secondary);
+            border-radius: 15px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .workflow-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(37, 99, 235, 0.1);
+            border: 2px solid var(--primary);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .workflow-step {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: rgba(16, 185, 129, 0.15);
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .workflow-number {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .workflow-arrow {
+            font-size: 2rem;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .info-card {
+            background: rgba(37, 99, 235, 0.15);
+            border: 2px solid var(--primary);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.3);
+        }
+
+        .info-card p {
+            margin: 1rem 0 0 0;
+            font-size: 1rem;
+            color: var(--text-light);
+        }
+
+        .nav-btn {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.5);
+        }
+
+        .prev-btn {
+            left: 2rem;
+        }
+
+        .next-btn {
+            right: 2rem;
+        }
+
+        .slide-counter {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(30, 41, 59, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            border: 2px solid var(--primary);
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-light);
+            z-index: 1000;
+        }
+
+        ul {
+            list-style: none;
+            padding-right: 0;
+        }
+
+        ul li {
+            position: relative;
+            padding-right: 2rem;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        ul li::before {
+            content: "▸";
+            position: absolute;
+            right: 0;
+            color: var(--secondary);
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+
+        @media (max-width: 768px) {
+            .workflow-diagram {
+                flex-direction: column;
+            }
+
+            .workflow-arrow {
+                transform: rotate(90deg);
+            }
+
+            .nav-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+
+            .prev-btn {
+                left: 1rem;
+            }
+
+            .next-btn {
+                right: 1rem;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            .slide {
+                padding: 1.5rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.8rem;
+            }
+
+            .stats-grid, .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="slide-container">
+            <!-- اسلاید 1: عنوان اصلی -->
+            <div class="slide active">
+                <h1>🚀 Agile: انقلابی در مدیریت پروژه</h1>
+                <div class="highlight-box">
+                    <p style="font-size: 1.3rem; text-align: center; margin: 0;">
+                        <strong>از Waterfall تا DevOps:</strong> سفری در دنیای چابک‌سازی نرم‌افزار
+                    </p>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-number">71%</span>
+                        <span class="stat-label">سازمان‌های جهانی از Agile استفاده می‌کنند</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">2001</span>
+                        <span class="stat-label">سال تولد رسمی Agile Manifesto</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">60%</span>
+                        <span class="stat-label">افزایش رضایت مشتری با Agile</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">30%</span>
+                        <span class="stat-label">کاهش زمان Time-to-Market</span>
+                    </div>
+                </div>
+                <p style="text-align: center; font-size: 1.2rem; margin-top: 2rem; color: var(--text-muted);">
+                    این گزارش مسیر تکامل Agile از مشکلات Waterfall تا فناوری‌های مدرن ۲۰۲۵ را بررسی می‌کند
+                </p>
+            </div>
+
+            <!-- اسلاید 2: پیش از Agile -->
+            <div class="slide">
+                <h2>📊 پیش از Agile: دوران Waterfall</h2>
+                <h3>مدل آبشاری (Waterfall Model)</h3>
+                <p>مدل Waterfall یک رویکرد <strong>خطی و ترتیبی</strong> بود که در دهه ۱۹۷۰ رایج شد. مراحل به صورت یک‌طرفه و بدون بازگشت اجرا می‌شدند:</p>
+                
+                <div class="content-grid">
+                    <div class="card">
+                        <div class="card-title">🔍 مراحل Waterfall</div>
+                        <ul>
+                            <li><strong>Requirements:</strong> جمع‌آوری کامل نیازمندی‌ها</li>
+                            <li><strong>Design:</strong> طراحی معماری سیستم</li>
+                            <li><strong>Implementation:</strong> کدنویسی کامل</li>
+                            <li><strong>Testing:</strong> تست در انتهای پروژه</li>
+                            <li><strong>Deployment:</strong> تحویل نهایی</li>
+                            <li><strong>Maintenance:</strong> نگهداری پس از تحویل</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-title">❌ مشکلات اساسی</div>
+                        <ul>
+                            <li><strong>انعطاف‌ناپذیری:</strong> تغییر نیازمندی = فاجعه</li>
+                            <li><strong>تحویل دیرهنگام:</strong> محصول پس از ماه‌ها دیده می‌شد</li>
+                            <li><strong>ریسک بالا:</strong> مشکلات در انتهای پروژه کشف می‌شدند</li>
+                            <li><strong>عدم تعامل:</strong> مشتری تا انتها محصول را نمی‌دید</li>
+                            <li><strong>هزینه تغییر:</strong> تغییرات بسیار گران‌قیمت بودند</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <p><strong>💡 نقطه عطف:</strong> در اواخر دهه ۱۹۹۰، پروژه‌های نرم‌افزاری با شکست‌های گسترده مواجه شدند. مطالعات نشان دادند که بیش از <strong>۶۰٪ پروژه‌های Waterfall</strong> با تأخیر، بودجه اضافی یا شکست کامل مواجه می‌شدند.</p>
+                </div>
+            </div>
+
+            <!-- اسلاید 3: تولد Agile -->
+            <div class="slide">
+                <h2>🌱 تولد Agile: انقلاب Snowbird</h2>
+                
+                <h3>پیش‌درآمدها (دهه ۱۹۹۰)</h3>
+                <div class="content-grid">
+                    <div class="card">
+                        <div class="card-title">🏉 Scrum (1995)</div>
+                        <p><strong>Ken Schwaber & Jeff Sutherland</strong></p>
+                        <ul>
+                            <li>Sprint‌های کوتاه (۲-۴ هفته)</li>
+                            <li>نقش‌های مشخص (PO, SM, Team)</li>
+                            <li>تحویل مکرر</li>
+                            <li>Empirical Process Control</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-title">💻 Extreme Programming (1996)</div>
+                        <p><strong>Kent Beck</strong></p>
+                        <ul>
+                            <li>Test-Driven Development (TDD)</li>
+                            <li>Pair Programming</li>
+                            <li>Continuous Integration</li>
+                            <li>Refactoring مداوم</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>🏔️ لحظه تاریخی: Snowbird, Utah (فوریه ۲۰۰۱)</h3>
+                <div class="highlight-box">
+                    <p><strong>۱۷ نفر</strong> از پیشگامان توسعه نرم‌افزار در یک کلبه کوهستانی جمع شدند:</p>
+                    <p style="margin-top: 1rem;"><em>Kent Beck, Martin Fowler, Robert C. Martin, Ken Schwaber, Jeff Sutherland, Alistair Cockburn, Ward Cunningham</em> و ۱۰ نفر دیگر</p>
+                </div>
+
+                <p style="font-size: 1.2rem; text-align: center; margin-top: 2rem;">
+                    <strong>🎯 هدف:</strong> یافتن راهی بهتر برای توسعه نرم‌افزار
+                </p>
+
+                <div class="stats-grid" style="margin-top: 2rem;">
+                    <div class="stat-card">
+                        <span class="stat-number">3 روز</span>
+                        <span class="stat-label">مدت جلسه Snowbird</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">68 کلمه</span>
+                        <span class="stat-label">طول Manifesto اصلی</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">17 امضا</span>
+                        <span class="stat-label">نویسندگان اولیه</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- اسلاید 4: Agile Manifesto -->
+            <div class="slide">
+                <h2>📜 Agile Manifesto: ۴ ارزش و ۱۲ اصل</h2>
+                
+                <h3>چهار ارزش بنیادین</h3>
+                <div class="content-grid">
+                    <div class="card" style="border-color: var(--primary);">
+                        <div class="card-title">👥 افراد و تعاملات</div>
+                        <p><strong>بر</strong> فرآیندها و ابزارها</p>
+                        <p style="font-size: 0.95rem; color: var(--text-muted); margin-top: 0.5rem;">
+                            ارتباط انسانی و همکاری تیمی مهم‌تر از پیروی کورکورانه از فرآیندها
+                        </p>
+                    </div>
+
+                    <div class="card" style="border-color: var(--secondary);">
+                        <div class="card-title">✅ نرم‌افزار کارآمد</div>
+                        <p><strong>بر</strong> مستندات جامع</p>
+                        <p style="font-size: 0.95rem; color: var(--text-muted); margin-top: 0.5rem;">
+                            محصول قابل استفاده ارزش‌مندتر از صدها صفحه مستندات است
+                        </p>
+                    </div>
+
+                    <div class="card" style="border-color: var(--accent);">
+                        <div class="card-title">🤝 همکاری با مشتری</div>
+                        <p><strong>بر</strong> مذاکره قراردادها</p>
+                        <p style="font-size: 0.95rem; color: var(--text-muted); margin-top: 0.5rem;">
+                            مشارکت مستمر مشتری بهتر از توافق‌نامه‌های سفت‌وسخت
+                        </p>
+                    </div>
+
+                    <div class="card" style="border-color: #ec4899;">
+                        <div class="card-title">🔄 پاسخ به تغییر</div>
+                        <p><strong>بر</strong> پیروی از برنامه</p>
+                        <p style="font-size: 0.95rem; color: var(--text-muted); margin-top: 0.5rem;">
+                            انعطاف و واکنش سریع به تغییرات بازار و نیازها
+                        </p>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 2rem;">دوازده اصل کلیدی (خلاصه)</h3>
+                <div class="highlight-box">
+                    <ul style="column-count: 2; column-gap: 2rem;">
+                        <li><strong>رضایت مشتری</strong> از طریق تحویل سریع و مداوم</li>
+                        <li><strong>پذیرش تغییر</strong> حتی در مراحل پایانی</li>
+                        <li><strong>تحویل مکرر</strong> (هر چند هفته)</li>
+                        <li><strong>همکاری روزانه</strong> بین کسب‌وکار و توسعه‌دهندگان</li>
+                        <li><strong>تیم‌های خودسازمان‌ده</strong> با انگیزه بالا</li>
+                        <li><strong>گفتگوی رو‌در‌رو</strong> به عنوان بهترین ارتباط</li>
+                        <li><strong>نرم‌افزار کارآمد</strong> معیار اصلی پیشرفت</li>
+                        <li><strong>توسعه پایدار</strong> (Sustainable Pace)</li>
+                        <li><strong>توجه به کیفیت</strong> فنی و طراحی خوب</li>
+                        <li><strong>سادگی</strong> (حداکثر کاری که انجام نمی‌شود)</li>
+                        <li><strong>معماری خودجوش</strong> از تیم‌های خودسازمان‌ده</li>
+                        <li><strong>بازنگری منظم</strong> و بهبود مستمر</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- اسلاید 5: اجزای کلیدی -->
+            <div class="slide">
+                <h2>⚙️ اجزای کلیدی Agile</h2>
+                
+                <div class="content-grid">
+                    <div class="card">
+                        <div class="card-title">🏃 Sprint</div>
+                        <ul>
+                            <li><strong>دوره زمانی ثابت</strong> (معمولاً ۲-۴ هفته)</li>
+                            <li>هدف مشخص و قابل تحویل</li>
+                            <li>Timeboxed (تغییر طول ندارد)</li>
+                            <li>خروجی: Potentially Shippable Product</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-title">📋 Product Backlog</div>
+                        <ul>
+                            <li><strong>لیست اولویت‌بندی شده</strong> از کارها</li>
+                            <li>User Stories, Features, Bugs</li>
+                            <li>مدیریت توسط Product Owner</li>
+                            <li>همیشه در حال تکامل</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-title">🎯 Sprint Planning</div>
+                        <ul>
+                            <li><strong>جلسه آغازین</strong> هر Sprint</li>
+                            <li>انتخاب کارهای Sprint Backlog</li>
+                            <li>تعیین Sprint Goal</li>
+                            <li>تخمین Capacity تیم</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-title">🗣️ Daily Standup</div>
+                        <ul>
+                            <li><strong>۱۵ دقیقه روزانه</strong></li>
+                            <li>چه کاری انجام دادم؟</li>
+                            <li>امروز چه خواهم کرد؟</li>
+                            <li>موانع چیست؟</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-title">🎬 Sprint Review</div>
+                        <ul>
+                            <li><strong>نمایش محصول</strong> به ذی‌نفعان</li>
+                            <li>جمع‌آوری Feedback</li>
+                            <li>بررسی Sprint Goal</li>
+                            <li>بروزرسانی Product Backlog</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-title">🔄 Sprint Retrospective</div>
+                        <ul>
+                            <li><strong>بازنگری فرآیند</strong> تیمی</li>
+                            <li>چه چیزی خوب بود؟</li>
+                            <li>چه چیزی باید بهبود یابد؟</li>
+                            <li>اقدامات بهبود برای Sprint بعد</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="highlight-box" style="margin-top: 2rem;">
+                    <p style="text-align: center; font-size: 1.2rem;">
+                        <strong>🔁 چرخه تکراری:</strong> Sprint Planning → Daily Standups → Sprint Review → Retrospective → تکرار
+                    </p>
+                </div>
+            </div>
+
+            <!-- اسلاید 6: نقش‌های اصلی -->
+            <div class="slide">
+                <h2>👥 نقش‌های اصلی در Scrum</h2>
+                
+                <div class="content-grid">
+                    <div class="card" style="border-color: var(--primary); border-width: 3px;">
+                        <div class="card-title" style="font-size: 1.5rem;">🎯 Product Owner</div>
+                        <h4>مسئولیت‌ها:</h4>
+                        <ul>
+                            <li><strong>تعریف Vision محصول</strong></li>
+                            <li>مدیریت و اولویت‌بندی Product Backlog</li>
+                            <li>نمایندگی صدای مشتری/کاربر</li>
+                            <li>پذیرش یا رد کارهای تمام شده</li>
+                            <li>تصمیم‌گیری درباره Release</li>
+                        </ul>
+                        <div class="highlight-box" style="margin-top: 1rem; background: rgba(37, 99, 235, 0.15);">
+                            <p style="margin: 0;"><strong>کلید موفقیت:</strong> دسترسی به ذی‌نفعان + تصمیم‌گیری قاطع</p>
+                        </div>
+                    </div>
+
+                    <div class="card" style="border-color: var(--secondary); border-width: 3px;">
+                        <div class="card-title" style="font-size: 1.5rem;">🛡️ Scrum Master</div>
+                        <h4>مسئولیت‌ها:</h4>
+                        <ul>
+                            <li><strong>تسهیل‌گری</strong> (نه مدیریت!)</li>
+                            <li>حذف موانع (Impediments)</li>
+                            <li>کوچینگ تیم در Agile</li>
+                            <li>محافظت تیم از مزاحمت‌ها</li>
+                            <li>بهبود فرآیندها</li>
+                        </ul>
+                        <div class="highlight-box" style="margin-top: 1rem; background: rgba(16, 185, 129, 0.15);">
+                            <p style="margin: 0;"><strong>کلید موفقیت:</strong> Servant Leadership + رفع مشکلات سازمانی</p>
+                        </div>
+                    </div>
+
+                    <div class="card" style="border-color: var(--accent); border-width: 3px;">
+                        <div class="card-title" style="font-size: 1.5rem;">💻 Development Team</div>
+                        <h4>ویژگی‌ها:</h4>
+                        <ul>
+                            <li><strong>خودسازمان‌ده</strong> (Self-Organizing)</li>
+                            <li>متقاطع مهارت (Cross-Functional)</li>
+                            <li>مسئولیت جمعی</li>
+                            <li>اندازه: ۳-۹ نفر (ایده‌آل ۵-۷)</li>
+                            <li>تعهد به Sprint Goal</li>
+                        </ul>
+                        <div class="highlight-box" style="margin-top: 1rem; background: rgba(245, 158, 11, 0.15);">
+                            <p style="margin: 0;"><strong>کلید موفقیت:</strong> Collaboration + Ownership مشترک</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="highlight-box" style="margin-top: 2rem; background: linear-gradient(135deg, rgba(37, 99, 235, 0.25) 0%, rgba(16, 185, 129, 0.25) 100%);">
+                    <h3 style="margin-top: 0;">⚠️ نکات مهم:</h3>
+                    <ul>
+                        <li><strong>بدون سلسله‌مراتب داخلی:</strong> همه اعضای تیم برابرند</li>
+                        <li><strong>نقش‌ها الزامی هستند:</strong> حذف هر کدام = خروج از Scrum</li>
+                        <li><strong>یک نفر نمی‌تواند دو نقش داشته باشد:</strong> (مثلاً PO + SM ممنوع)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- اسلاید 7: پیاده‌سازی در Jira -->
+            <div class="slide">
+                <h2>🔧 پیاده‌سازی Agile در Jira</h2>
+                
+                <div class="workflow-diagram">
+                    <div class="workflow-step">
+                        <div class="workflow-number">1</div>
+                        <div>
+                            <strong>ایجاد پروژه</strong>
+                            <p>انتخاب Template: Scrum یا Kanban</p>
+                        </div>
+                    </div>
+                    <div class="workflow-arrow">→</div>
+                    <div class="workflow-step">
+                        <div class="workflow-number">2</div>
+                        <div>
+                            <strong>تنظیم Backlog</strong>
+                            <p>ایجاد Epics، Stories، Tasks</p>
+                        </div>
+                    </div>
+                    <div class="workflow-arrow">→</div>
+                    <div class="workflow-step">
+                        <div class="workflow-number">3</div>
+                        <div>
+                            <strong>Sprint Planning</strong>
+                            <p>انتقال Items به Sprint</p>
+                        </div>
+                    </div>
+                    <div class="workflow-arrow">→</div>
+                    <div class="workflow-step">
+                        <div class="workflow-number">4</div>
+                        <div>
+                            <strong>Tracking</strong>
+                            <p>Board, Burndown, Reports</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-grid" style="margin-top: 2rem;">
+                    <div class="card">
+                        <div class="card-title">📝 Issue Types</div>
+                        <ul>
+                            <li><strong>Epic:</strong> ویژگی بزرگ (چند Sprint)</li>
+                            <li><strong>Story:</strong> قابلیت کاربر (۱-۲ Sprint)</li>
+                            <li><strong>Task:</strong> کار فنی خاص</li>
+                            <li><strong>Bug:</strong> مشکل/خطا</li>
+                            <li><strong>Sub-task:</strong> جزئیات Story/Task</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-title">🔄 Workflow پیش‌فرض</div>
+                        <div style="background: rgba(15, 23, 42, 0.6); padding: 1rem; border-radius: 8px; margin-top: 0.5rem;">
+                            <p style="font-family: 'Courier New', monospace; margin: 0;">
+                                <span style="color: var(--text-muted);">TO DO</span> 
+                                → <span style="color: var(--primary);">IN PROGRESS</span> 
+                                → <span style="color: var(--accent);">IN REVIEW</span> 
+                                → <span style="color: var(--secondary);">DONE</span>
+                            </p>
+                        </div>
+                        <p style="margin-top: 1rem; font-size: 0.95rem; color: var(--text-muted);">
+                            قابل سفارشی‌سازی برای هر تیم
+                        </p>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-title">📊 گزارش‌های کلیدی</div>
+                        <ul>
+                            <li><strong>Burndown Chart:</strong> پیشرفت Sprint</li>
+                            <li><strong>Velocity Chart:</strong> سرعت تیم</li>
+                            <li><strong>Cumulative Flow:</strong> جریان کار</li>
+                            <li><strong>Sprint Report:</strong> خلاصه عملکرد</li>
+                            <li><strong>Epic Report:</strong> پیشرفت Epic‌ها</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-title">🎯 Best Practices</div>
+                        <ul>
+                            <li><strong>Story Points:</strong> از Fibonacci استفاده کنید</li>
+                            <li><strong>Definition of Done:</strong> مشخص کنید</li>
+                            <li><strong>Automation:</strong> از Rules استفاده کنید</li>
+                            <li><strong>Board Columns:</strong> با Workflow همخوان باشد</li>
+                            <li><strong>Backlog Refinement:</strong> هفتگی انجام دهید</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="highlight-box" style="margin-top: 2rem;">
+                    <p style="text-align: center; margin: 0;">
+                        <strong>💡 نکته:</strong> Jira ابزار است، نه متدولوژی - موفقیت به فرهنگ تیم بستگی دارد!
+                    </p>
+                </div>
+            </div>
+
+            <!-- اسلاید 8: وضعیت فعلی و آینده -->
+            <div class="slide">
+                <h2>🚀 Agile امروز و فردا</h2>
+                
+                <h3>📈 آمار جهانی (۲۰۲۵)</h3>
+                <div class="content-grid">
+                    <div class="info-card" style="background: linear-gradient(135deg, rgba(37, 99, 235, 0.25) 0%, rgba(16, 185, 129, 0.25) 100%);">
+                        <div style="font-size: 3rem; font-weight: bold; color: var(--primary);">71%</div>
+                        <p>سازمان‌های نرم‌افزاری از Agile استفاده می‌کنند</p>
+                    </div>
+                    <div class="info-card" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.25) 0%, rgba(245, 158, 11, 0.25) 100%);">
+                        <div style="font-size: 3rem; font-weight: bold; color: var(--secondary);">87%</div>
+                        <p>تیم‌های Agile رضایت بالاتری از کار دارند</p>
+                    </div>
+                    <div class="info-card" style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.25) 0%, rgba(239, 68, 68, 0.25) 100%);">
+                        <div style="font-size: 3rem; font-weight: bold; color: var(--accent);">60%</div>
+                        <p>کاهش Time-to-Market در پروژه‌های Agile</p>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 2rem;">🔮 روندهای آینده</h3>
+                <div class="content-grid">
+                    <div class="card">
+                        <div class="card-title">🤖 AI + Agile</div>
+                        <ul>
+                            <li>تخمین خودکار Story Points</li>
+                            <li>پیش‌بینی ریسک‌های Sprint</li>
+                            <li>بهینه‌سازی تخصیص کار</li>
+                            <li>Code Review هوشمند</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-title">☁️ DevOps Integration</div>
+                        <ul>
+                            <li>CI/CD Pipeline یکپارچه</li>
+                            <li>Infrastructure as Code</li>
+                            <li>Automated Testing</li>
+                            <li>Continuous Deployment</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-title">🌐 Remote Agile</div>
+                        <ul>
+                            <li>تیم‌های توزیع‌شده جهانی</li>
+                            <li>ابزارهای همکاری آنلاین</li>
+                            <li>Virtual Ceremonies</li>
+                            <li>Async Communication</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-title">📊 Scaled Agile</div>
+                        <ul>
+                            <li>SAFe (Scaled Agile Framework)</li>
+                            <li>LeSS (Large-Scale Scrum)</li>
+                            <li>Nexus Framework</li>
+                            <li>Spotify Model</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="highlight-box" style="margin-top: 2rem; background: linear-gradient(135deg, rgba(37, 99, 235, 0.2) 0%, rgba(16, 185, 129, 0.2) 50%, rgba(245, 158, 11, 0.2) 100%);">
+                    <h3 style="margin-top: 0; text-align: center;">🎯 نتیجه‌گیری</h3>
+                    <p style="font-size: 1.1rem; text-align: center; line-height: 1.8;">
+                        Agile دیگر فقط یک متدولوژی نیست - یک <strong>فرهنگ</strong> است.<br>
+                        موفقیت در Agile به ابزار بستگی ندارد، به <strong>ذهنیت تیم</strong> بستگی دارد.<br>
+                        <span style="color: var(--primary); font-weight: bold;">🚀 Embrace Change. Deliver Value. Improve Continuously.</span>
+                    </p>
+                </div>
+
+                <div style="text-align: center; margin-top: 2rem; padding: 1.5rem; background: rgba(30, 41, 59, 0.6); border-radius: 12px;">
+                    <p style="font-size: 1.5rem; margin: 0; color: var(--primary);">
+                        <strong>سپاس از توجه شما! 🙏</strong>
+                    </p>
+                    <p style="margin: 0.5rem 0 0 0; color: var(--text-muted);">
+                        سوالات و بحث‌های خود را مطرح کنید
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Controls -->
+        <button class="nav-btn prev-btn" onclick="changeSlide(-1)">❮</button>
+        <button class="nav-btn next-btn" onclick="changeSlide(1)">❯</button>
+        
+        <div class="slide-counter">
+            <span id="current-slide">1</span> / <span id="total-slides">8</span>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        document.getElementById('total-slides').textContent = totalSlides;
+
+        function showSlide(n) {
+            if (n >= totalSlides) currentSlide = 0;
+            if (n < 0) currentSlide = totalSlides - 1;
+            else currentSlide = n;
+
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active');
+                if (index === currentSlide) {
+                    slide.classList.add('active');
+                }
+            });
+
+            document.getElementById('current-slide').textContent = currentSlide + 1;
+
+            document.querySelector('.prev-btn').style.display = currentSlide === 0 ? 'none' : 'flex';
+            document.querySelector('.next-btn').style.display = currentSlide === totalSlides - 1 ? 'none' : 'flex';
+        }
+
+        function changeSlide(direction) {
+            showSlide(currentSlide + direction);
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') changeSlide(1);  // RTL: چپ = بعدی
+            if (e.key === 'ArrowRight') changeSlide(-1); // RTL: راست = قبلی
+        });
+
+        showSlide(0);
+    </script>
+</body>
+</html>
